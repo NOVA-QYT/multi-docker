@@ -10,18 +10,18 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - run: docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
-      - run: docker build -t yoqiao98/react-test-up -f ./client/Dockerfile.dev ./client
-      - run: docker run -e CI=true yoqiao98/react-test-up npm test
+      - run: docker build -t yoqiao98/react-test -f ./client/Dockerfile.dev ./client
+      - run: docker run -e CI=true yoqiao98/react-test npm test
 
-      - run: docker build -t yoqiao98/multi-client-up ./client
-      - run: docker build -t yoqiao98/multi-nginx-up ./nginx
-      - run: docker build -t yoqiao98/multi-server-up ./server
-      - run: docker build -t yoqiao98/multi-worker-up ./worker
+      - run: docker build -t yoqiao98/multi-client ./client
+      - run: docker build -t yoqiao98/multi-nginx ./nginx
+      - run: docker build -t yoqiao98/multi-server ./server
+      - run: docker build -t yoqiao98/multi-worker ./worker
 
-      - run: docker push yoqiao98/multi-client-up
-      - run: docker push yoqiao98/multi-nginx-up
-      - run: docker push yoqiao98/multi-server-up
-      - run: docker push yoqiao98/multi-worker-up
+      - run: docker push yoqiao98/multi-client
+      - run: docker push yoqiao98/multi-nginx
+      - run: docker push yoqiao98/multi-server
+      - run: docker push yoqiao98/multi-worker
 
       - name: Generate deployment package
         run: zip -r deploy.zip . -x '*.git*'
